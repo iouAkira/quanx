@@ -1,8 +1,3 @@
-/**
- *
- * [rewrite_local]
- * ^https\:\/\/api\.m\.jd\.com\/client\.action\?functionId\=jComExchange url script-response-body gfjd.js
- */
 const $ = new Env('获取组队分京豆活动信息');
 
 var body = $response.body;

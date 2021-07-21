@@ -1,8 +1,3 @@
-/**
- *
- * [rewrite_local]
- * ^https\:\/\/shopmember\.m\.jd\.com\/shopcard\/ url script-response-body getShopid.js
- */
 const $ = new Env('获取DD店铺会员开卡信息');
 
 var jUrl = $request.url;

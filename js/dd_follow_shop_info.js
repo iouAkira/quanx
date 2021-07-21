@@ -1,8 +1,3 @@
-/**
- *
- * [rewrite_local]
- * ^https\:\/\/api\.m\.jd\.com\/client\.action\?functionId\=drawShopGift url script-request-body followShopInfo.js
- */
 const $ = new Env("获取DD店铺关注有礼信息");
 
 var jUrl = $request.url;
