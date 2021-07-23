@@ -1,46 +1,49 @@
-const $ = new Env("获取DD店铺特效关注有礼信息");
-
-var jUrl = $request.url;
-var jBody = "", respBody = ""
-if ($request.body) {
-    jBody = $request.body
-}
-if ($response.body) {
-    respBody = $response.body;
-}
-
 // * ISV_SHOP_ID
 // * ISV_VENDER_ID
 // * ISV_RED_URL
 // * ISV_SIGN
 
+const $ = new Env("获取DD店铺特效关注有礼信息");
+
+var jUrl = $request.url;
+
+
 if (jUrl.indexOf("functionId=getShopHomeActivityInfo") != -1) {
-    if (respBody) {
-        respData = JSON.parse(respBody)
-        $.setData(reqBody.result.IsvRedUrl, "isvRedUrl")
-        console.log(`isvRedUrl:${$.getData("isvRedUrl")}`)
+    if ($response) {
+        var respData = JSON.parse($response.body)
+        if (respData.result.IsvRedUrl) {
+            $.setdata(respData.result.IsvRedUrl, "isvRedUrl")
+        } else {
+            $.setdata("", "isvShopId")
+            $.setdata("", "isvVnderId")
+        }
+        console.log(`isvRedUrl:${$.getdata("isvRedUrl")}`)
         $.done()
-    }
-    if (jBody) {
+    } else {
+        var jBody = $request.body
         var reqBody = getQueryString(jBody, "body");
         reqBody = JSON.parse(reqBody);
-        $.setData(reqBody.shopId, "isvShopId")
-        $.setData(reqBody.venderId, "isvVnderId")
-        console.log(`isvShopId:${$.getData(isvShopId)};isvVnderId:${$.getData(isvVnderId)}`)
+        $.setdata(reqBody.shopId, "isvShopId")
+        $.setdata(reqBody.venderId, "isvVnderId")
+        console.log(`isvShopId:${$.getdata("isvShopId")};isvVnderId:${$.getdata("isvVnderId")}`)
         $.done()
     }
-
 }
+
 if (jUrl.indexOf("functionId=isvObfuscator") != -1) {
-    var clientVersion = getQueryString(jBody, "clientVersion");
-    var openudid = getQueryString(jBody, "openudid");
-    var reqSign = getQueryString(jBody, "sign");
-    var reqSt = getQueryString(jBody, "st");
-    var reqSv = getQueryString(jBody, "sv");
-    $.signBody = `clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}`
+    if ($.getdata("isvRedUrl") && $.getdata("isvShopId") && $.getdata("isvVnderId")) {
+        var clientVersion = getQueryString(jBody, "clientVersion");
+        var openudid = getQueryString(jBody, "openudid");
+        var reqSign = getQueryString(jBody, "sign");
+        var reqSt = getQueryString(jBody, "st");
+        var reqSv = getQueryString(jBody, "sv");
+        $.signBody = `clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}`
+    } else {
+        console.log(`getShopHomeActivityInfo上一步抓取信息不完整，结束本次signbody 抓取`)
+    }
 }
 
-var notifyText = `/env ISV_SHOP_ID="${$.getData(isvShopId)}"\n/env ISV_VENDER_ID="${$.getData(isvVnderId)}"\n/env ISV_RED_URL="${$.getData("isvRedUrl")}"\n/env ISV_SIGN="${$.signBody}"\n\nVia. Quanx Auto Send`;
+var notifyText = `/env ISV_SHOP_ID="${$.getdata("isvShopId")}"\n/env ISV_VENDER_ID="${$.getdata("isvVnderId")}"\n/env ISV_RED_URL="${$.getdata("isvRedUrl")}"\n/env ISV_SIGN="${$.signBody}"\n\nVia. Quanx Auto Send`;
 
 !(async () => {
     if (reqBody.shopId) {
