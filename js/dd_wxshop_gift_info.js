@@ -1,8 +1,13 @@
 const $ = new Env("获取DD店铺特效关注有礼信息");
 
 var jUrl = $request.url;
-var jBody = $request.body;
-var respBody = $response.body;
+var jBody = "", respBody = ""
+if ($request.body) {
+    jBody = $request.body
+}
+if ($response.body) {
+    respBody = $response.body;
+}
 
 // * ISV_SHOP_ID
 // * ISV_VENDER_ID
