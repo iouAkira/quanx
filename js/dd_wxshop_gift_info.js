@@ -45,7 +45,7 @@ var notifyText = `/env ISV_SHOP_ID="${$.getData(isvShopId)}"\n/env ISV_VENDER_ID
 !(async () => {
     if (reqBody.shopId) {
         try {
-            await update(notifyText, TG_BOT_TOKEN, TG_USER_ID);
+            await update(notifyText);
             $.msg(`关注有礼`, `获取活动信息成功🎉`, `${notifyText}`);
         } catch (error) {
             $.logErr(error);
