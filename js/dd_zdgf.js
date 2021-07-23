@@ -5,15 +5,24 @@ var body = $response.body;
 
 let obj = JSON.parse(body);
 
-var jump = new URL(obj.data.jumpUrl)
-var searchParams = new URLSearchParams(jump.search);
+var jUrl=obj.data.jumpUrl
+var queryStr=jUrl.split("?")[1]
 
-var notifyText = `/env jd_zdjr_activityUrl="${jump.origin}"\n/env jd_zdjr_activityId="${searchParams.get('activityId')}"\n\nVia. QuanX Auto Send`
+var actUrl = jUrl.split(`/`);
+if (actUrl[2]) {
+    actUrl = (actUrl.slice(0,3)).join("/");
+} else {
+    actUrl = "";
+}
+
+var actId=getQueryString(queryStr,"activityId")
+
+var notifyText = `/env jd_zdjr_activityUrl="https://${actUrl}"\n/env jd_zdjr_activityId="${actId}"\n\nVia. QuanX Auto Send`
 
 console.log(`\n\n${notifyText}`)
 
 !(async () => {
-    if (searchParams.get('activityId')) {
+    if (actId) {
         try {
             await update(notifyText)
             $.msg(`组队分京豆`, `获取活动id成功🎉`, `${notifyText}`)

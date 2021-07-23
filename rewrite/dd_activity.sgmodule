@@ -1,0 +1,11 @@
+#!name=抓取活动信息
+#!desc=自动抓取活动信息并发到群里
+
+[Script]
+获取组队分京豆活动ID = type=http-response,pattern=^https\:\/\/api\.m\.jd\.com\/client\.action\?functionId\=jComExchange,requires-body=1,max-size=-1,script-path=https://raw.githubusercontent.com/iouAkira/quanx/master/js/dd_zdgf.js,script-update-interval=86400
+获取DD店铺会员开卡信息 = type=http-response,pattern=^https\:\/\/shopmember\.m\.jd\.com\/shopcard\/,requires-body=1,max-size=-1,script-path=https://raw.githubusercontent.com/iouAkira/quanx/master/js/dd_open_card.js,script-update-interval=86400
+获取DD店铺关注有礼信息1 = type=http-response,pattern=^https\:\/\/api\.m\.jd\.com\/client\.action\?functionId\=drawShopGift,requires-body=1,max-size=-1,script-path=https://raw.githubusercontent.com/iouAkira/quanx/master/js/dd_follow_shop_info.js,script-update-interval=86400
+
+
+[MITM]
+hostname = %APPEND% api.m.jd.com, m.jd.com, wq.jd.com
