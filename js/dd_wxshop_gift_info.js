@@ -13,11 +13,13 @@ if (jUrl.indexOf("functionId=getShopHomeActivityInfo") != -1) {
         var respData = JSON.parse($response.body)
         if (respData.result.IsvRedUrl) {
             $.setdata(respData.result.IsvRedUrl, "isvRedUrl")
+            console.log(`获取活动链接地址成功🎉isvRedUrl:${$.getdata("isvRedUrl")}`)
         } else {
+            console.log(`获取链接地址信息获取失败，清空相关环境变量❌`)
             $.setdata("", "isvShopId")
             $.setdata("", "isvVnderId")
         }
-        console.log(`isvRedUrl:${$.getdata("isvRedUrl")}`)
+
         $.done()
     } else {
         var jBody = $request.body
@@ -25,7 +27,7 @@ if (jUrl.indexOf("functionId=getShopHomeActivityInfo") != -1) {
         reqBody = JSON.parse(reqBody);
         $.setdata(reqBody.shopId, "isvShopId")
         $.setdata(reqBody.venderId, "isvVnderId")
-        console.log(`isvShopId:${$.getdata("isvShopId")};isvVnderId:${$.getdata("isvVnderId")}`)
+        console.log(`获取活动店铺信息成功🎉isvShopId:${$.getdata("isvShopId")};isvVnderId:${$.getdata("isvVnderId")}`)
         $.done()
     }
 }
