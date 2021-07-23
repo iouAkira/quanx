@@ -5,8 +5,6 @@ var body = $response.body;
 
 let obj = JSON.parse(body);
 
-let obj = JSON.parse(body);
-
 var jUrl=obj.data.jumpUrl
 var queryStr=jUrl.split("?")[1]
 
