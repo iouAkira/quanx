@@ -43,7 +43,8 @@ if (jUrl.indexOf("functionId=isvObfuscator") != -1) {
         var reqSign = getQueryString(jBody, "sign");
         var reqSt = getQueryString(jBody, "st");
         var reqSv = getQueryString(jBody, "sv");
-        $.signBody = `clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}`
+        console.log(`clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}`)
+        $.signBody = `isvObfuscator_sing：clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}`
     } else {
         console.log(`getShopHomeActivityInfo上一步抓取信息不完整，结束本次signbody 抓取`)
     }
@@ -52,7 +53,7 @@ if (jUrl.indexOf("functionId=isvObfuscator") != -1) {
 var notifyText = `/env ISV_SHOP_ID="${$.getdata("isvShopId")}"\n/env ISV_VENDER_ID="${$.getdata("isvVnderId")}"\n/env ISV_RED_URL="${$.getdata("isvRedUrl")}"\n/env ISV_SIGN="${$.signBody}"\n\nVia. Quanx Auto Send`;
 
 !(async () => {
-    if (reqBody.shopId) {
+    if ($.signBody) {
         try {
             await update(notifyText);
             $.msg(`关注有礼`, `获取活动信息成功🎉`, `${notifyText}`);
