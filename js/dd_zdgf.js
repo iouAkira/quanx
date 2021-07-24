@@ -17,7 +17,7 @@ if (actUrl[2]) {
 
 var actId=getQueryString(queryStr,"activityId")
 
-var notifyText = `/env jd_zdjr_activityUrl="{actUrl}"\n/env jd_zdjr_activityId="${actId}"\n\nVia. QuanX Auto Send`
+var notifyText = `/env jd_zdjr_activityUrl="${actUrl}"\n/env jd_zdjr_activityId="${actId}"\n\nVia. QuanX Auto Send`
 
 console.log(`\n\n${notifyText}`)
 
