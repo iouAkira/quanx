@@ -38,6 +38,14 @@ console.log(`\n\n${notifyText}`)
     $.done();
 })
 
+function getQueryString(qStr, name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = qStr.match(reg);
+    if (r != null) {
+        return unescape(r[2]);
+    }
+    return null;
+}
 
 function update(body) {
     text = `${body}`
