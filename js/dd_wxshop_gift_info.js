@@ -23,6 +23,7 @@ if (jUrl.indexOf("functionId=getShopHomeActivityInfo") != -1) {
         $.done()
     } else {
         var jBody = $request.body
+        console.log(`getShopHomeActivityInfo===========${jBody}`)
         var reqBody = getQueryString(jBody, "body");
         reqBody = JSON.parse(reqBody);
         $.setdata(reqBody.shopId, "isvShopId")
@@ -34,6 +35,9 @@ if (jUrl.indexOf("functionId=getShopHomeActivityInfo") != -1) {
 
 if (jUrl.indexOf("functionId=isvObfuscator") != -1) {
     if ($.getdata("isvRedUrl") && $.getdata("isvShopId") && $.getdata("isvVnderId")) {
+        var jBody = $request.body
+        console.log(`isvObfuscator===========${jBody}`)
+        var reqBody = getQueryString(jBody, "body");
         var clientVersion = getQueryString(jBody, "clientVersion");
         var openudid = getQueryString(jBody, "openudid");
         var reqSign = getQueryString(jBody, "sign");
