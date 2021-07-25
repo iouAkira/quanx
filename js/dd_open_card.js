@@ -1,4 +1,4 @@
-const $ = new Env('获取DD店铺会员开卡信息');
+const $ = new Env('DD店铺会员开卡信息');
 
 var jUrl = $request.url;
 var queryStr = jUrl.split("?")[1]

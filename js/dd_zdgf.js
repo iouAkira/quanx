@@ -1,4 +1,4 @@
-const $ = new Env('获取组队分京豆活动信息');
+const $ = new Env('DD组队分京豆活动信息');
 
 var body = $response.body;
 // var url = $request.url;

@@ -1,4 +1,4 @@
-const $ = new Env("获取DD店铺关注有礼信息");
+const $ = new Env("DD店铺关注有礼");
 
 var jUrl = $request.url;
 var jBody = $request.body;
