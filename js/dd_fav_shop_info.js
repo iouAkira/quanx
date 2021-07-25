@@ -8,8 +8,8 @@ const $ = new Env("DD店铺收藏有礼");
 var reqUrl = $request.url;
 var body = $response.body;
 body = body.substring(body.indexOf(`(`) + 1, body.lastIndexOf(");"));
-body = JSON.parse(body);
 console.log(body)
+body = JSON.parse(body);
 
 if (reqUrl.indexOf("https://shop.m.jd.com/mshop/QueryShopMemberInfoJson") != -1) {
     if (body.shopId && body.venderId) {
