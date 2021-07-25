@@ -1,32 +1,35 @@
 /**
+ * ^https\:/\/wq\.jd\.com\/fav_snsgift\/QueryShopActive url script-request-header https://raw.githubusercontent.com/iouAkira/quanx/master/js/dd_fav_shop_info.js
  * ^https\:/\/wq\.jd\.com\/fav_snsgift\/QueryShopActive url script-response-body https://raw.githubusercontent.com/iouAkira/quanx/master/js/dd_fav_shop_info.js
  */
 
 const $ = new Env("DD店铺收藏有礼");
 
 var reqUrl = $request.url;
-console.log($request.headers)
-var referer = $request.headers["referer"]
-
 var reqQueryStr = reqUrl.split("?")[1];
-var referQueryStr = referer.split("?")[1];
-
-var shopId = getQueryString(referQueryStr, "shopId")
 var venderId = getQueryString(reqQueryStr, "venderId")
 
-var body = $response.body;
-body = body.substring(body.indexOf(`(`) + 1, body.lastIndexOf(");"));
-body = JSON.parse(body);
-
-if (body.gift) {
-    console.log(body.gift[0])
-    console.log(`查询到有礼包信息，发送通知`)
-} else {
-    console.log(`未查询到礼包信息，取消通知`)
+if ($response) {
+    body = $response.body
+    body = body.substring(body.indexOf(`(`) + 1, body.lastIndexOf(");"));
+    console.log(`headers:${JSON.stringify($request.headers)}`)
+    body = JSON.parse(body);
+    if (body.gift) {
+        console.log(JSON.stringify(body.gift))
+        console.log(`查询到有礼包信息，准备发送通知`)
+    } else {
+        console.log(`未查询到礼包信息，取消通知`)
+        $.done()
+    }
+} else if ($request.headers) {
+    // console.log(`headers:${JSON.stringify($request.headers)}`)
+    var referer = $request.headers["Referer"]
+    var referQueryStr = referer.split("?")[1];
+    $.setdata(getQueryString(referQueryStr, "shopId"), "favShopId")
     $.done()
 }
 
-var notifyText = `/env FAV_SHOP_ID="${shopId}"\n/env FAV_VENDER_ID="${venderId}"\n\nVia. Quanx Auto Send`;
+var notifyText = `/env FAV_SHOP_ID="${$.getdata("favShopId")}"\n/env FAV_VENDER_ID="${venderId}"\n\nVia. Quanx Auto Send`;
 
 !(async () => {
     if (venderId) {
