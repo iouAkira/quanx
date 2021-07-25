@@ -5,8 +5,8 @@
 const $ = new Env("DD店铺收藏有礼");
 
 var reqUrl = $request.url;
-console.log($request)
-var referer = $request.headers["Referer"]
+console.log($request.headers)
+var referer = $request.headers["referer"]
 
 var reqQueryStr = reqUrl.split("?")[1];
 var referQueryStr = referer.split("?")[1];
