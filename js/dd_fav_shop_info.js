@@ -2,7 +2,7 @@ const $ = new Env("DD店铺收藏有礼");
 
 
 var body = $response.body;
-body = data.substring(data.indexOf(`(`) + 1, data.lastIndexOf(");"));
+body = data.substring(body.indexOf(`(`) + 1, body.lastIndexOf(");"));
 body = JSON.parse(body);
 
 var notifyText = `/env FAV_SHOP_ID="${body.shopId}"\n/env FAV_VENDER_ID="${body.venderId}"\n\nVia. Quanx Auto Send`;
