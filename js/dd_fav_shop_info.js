@@ -1,11 +1,39 @@
+/**
+ * ^https\:\/\/shop\.m\.jd\.com\/mshop\/QueryShopMemberInfoJson url script-response-body https://raw.githubusercontent.com/iouAkira/quanx/master/js/dd_fav_shop_info.js
+ * ^https\:/\/wq\.jd\.com\/fav_snsgift\/QueryShopActive url script-response-body https://raw.githubusercontent.com/iouAkira/quanx/master/js/dd_fav_shop_info.js
+ */
+
 const $ = new Env("DD店铺收藏有礼");
 
-
+var reqUrl = $request.url;
 var body = $response.body;
 body = body.substring(body.indexOf(`(`) + 1, body.lastIndexOf(");"));
 body = JSON.parse(body);
 
-var notifyText = `/env FAV_SHOP_ID="${body.shopId}"\n/env FAV_VENDER_ID="${body.venderId}"\n\nVia. Quanx Auto Send`;
+if (reqUrl.indexOf("https://shop.m.jd.com/mshop/QueryShopMemberInfoJson") != -1) {
+    if (body) {
+        $.setdata(body.shopId, "favShopId")
+        $.setdata(body.venderId, "favVnderId")
+        console.log(`获取活动店铺信息成功🎉favShopId:${$.getdata("favShopId")};favVnderId:${$.getdata("favVnderId")}`)
+    }
+    $.done()
+}
+
+if (reqUrl.indexOf("https://wq.jd.com/fav_snsgift/QueryShopActive") != -1) {
+    if ($.getdata("favShopId") && $.getdata("favVnderId")) {
+        if (body.gift) {
+            console.log(body.gift[0])
+            console.log(`查询到有礼包信息，发送通知`)
+        } else {
+            $.done()
+        }
+    } else {
+        console.log(`QueryShopMemberInfoJson上一步抓取信息不完整，结束本次抓取`)
+        $.done()
+    }
+}
+
+var notifyText = `/env FAV_SHOP_ID="${$.getdata("favShopId")}"\n/env FAV_VENDER_ID="${$.getdata("favVnderId")}"\n\nVia. Quanx Auto Send`;
 
 !(async () => {
     if (body.venderId) {
