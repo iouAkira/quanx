@@ -44,7 +44,7 @@ if (jUrl.indexOf("functionId=isvObfuscator") != -1) {
         var reqSt = getQueryString(jBody, "st");
         var reqSv = getQueryString(jBody, "sv");
         console.log(`clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}`)
-        $.signBody = `isvObfuscator_sing：clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}`
+        $.signBody = `clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}`
     } else {
         console.log(`getShopHomeActivityInfo上一步抓取信息不完整，结束本次signbody 抓取`)
     }
