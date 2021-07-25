@@ -1,10 +1,10 @@
 const $ = new Env('DD店铺会员开卡信息');
 
-var jUrl = $request.url;
-var queryStr = jUrl.split("?")[1]
+var reqUrl = $request.url;
+var reqQueryStr = reqUrl.split("?")[1]
 
-var shopId = getQueryString(queryStr, "shopId")
-var venderId = getQueryString(queryStr, "venderId")
+var shopId = getQueryString(reqQueryStr, "shopId")
+var venderId = getQueryString(reqQueryStr, "venderId")
 
 var notifyText = `/env OPEN_CARD_SHOP_ID="${shopId}"\n/env OPEN_CARD_VENDER_ID="${venderId}"\n\nVia. Quanx Auto Send`
 
