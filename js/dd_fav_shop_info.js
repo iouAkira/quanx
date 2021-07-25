@@ -9,14 +9,15 @@ var reqUrl = $request.url;
 var body = $response.body;
 body = body.substring(body.indexOf(`(`) + 1, body.lastIndexOf(");"));
 body = JSON.parse(body);
+console.log(body)
 
 if (reqUrl.indexOf("https://shop.m.jd.com/mshop/QueryShopMemberInfoJson") != -1) {
-    if (body) {
+    if (body.shopId && body.venderId) {
         $.setdata(body.shopId, "favShopId")
         $.setdata(body.venderId, "favVnderId")
         console.log(`获取活动店铺信息成功🎉favShopId:${$.getdata("favShopId")};favVnderId:${$.getdata("favVnderId")}`)
+        $.done()
     }
-    $.done()
 }
 
 if (reqUrl.indexOf("https://wq.jd.com/fav_snsgift/QueryShopActive") != -1) {
