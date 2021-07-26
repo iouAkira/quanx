@@ -13,8 +13,8 @@ if ($response) {
     body = $response.body
     body = body.substring(body.indexOf(`(`) + 1, body.lastIndexOf(");"));
     // console.log(`headers:${JSON.stringify($request.headers)}`)
-    body = JSON.parse(JSON.stringify(body));
-    console.log()
+    body = JSON.parse(body);
+    console.log(JSON.stringify(body))
     if (body.gift) {
         console.log(JSON.stringify(body.gift))
         console.log(`查询到有礼包信息，准备发送通知`)
