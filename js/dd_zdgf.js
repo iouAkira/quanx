@@ -5,17 +5,20 @@ var body = $response.body;
 
 let obj = JSON.parse(body);
 
-var jUrl=obj.data.jumpUrl
-var queryStr=jUrl.split("?")[1]
+var jUrl = obj.data.jumpUrl
+var queryStr = jUrl.split("?")[1]
 
 var actUrl = jUrl.split(`/`);
 if (actUrl[2]) {
-    actUrl = (actUrl.slice(0,3)).join("/");
+    actUrl = (actUrl.slice(0, 3)).join("/");
 } else {
     actUrl = "";
 }
 
-var actId=getQueryString(queryStr,"activityId")
+var actId = getQueryString(queryStr, "activityId")
+if (actId && actId.length < 26) {
+    $.done()
+}
 
 var notifyText = `/env jd_zdjr_activityUrl="${actUrl}"\n/env jd_zdjr_activityId="${actId}"\n\nVia. QuanX Auto Send`
 
