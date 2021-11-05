@@ -50,7 +50,7 @@ if (jUrl.indexOf("functionId=isvObfuscator") != -1) {
     }
 }
 
-var notifyText = `/env ISV_SHOP_ID="${$.getdata("isvShopId")}"\n/env ISV_VENDER_ID="${$.getdata("isvVnderId")}"\n/env ISV_RED_URL="${$.getdata("isvRedUrl")}"\n/env ISV_SIGN="${$.signBody}"\n\nVia. Quanx Auto Send`;
+var notifyText = `/monitor ISV_SHOP_ID="${$.getdata("isvShopId")}"\n/monitor ISV_VENDER_ID="${$.getdata("isvVnderId")}"\n\nVia. Quanx Auto Send`;
 
 !(async () => {
     if ($.signBody) {

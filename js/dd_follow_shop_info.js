@@ -6,15 +6,10 @@ var queryStr = jUrl.split("?")[1];
 console.log(jUrl);
 console.log(jBody);
 var reqBody = getQueryString(jBody, "body");
-var clientVersion = getQueryString(jBody, "clientVersion");
-var openudid = getQueryString(jBody, "openudid");
-var reqSign = getQueryString(jBody, "sign");
-var reqSt = getQueryString(jBody, "st");
-var reqSv = getQueryString(jBody, "sv");
 
 reqBody = JSON.parse(reqBody);
 
-var notifyText = `/env FOLLOW_SHOP_ID="${reqBody.shopId}"\n/env FOLLOW_VENDER_ID="${reqBody.venderId}"\n/env FOLLOW_ACT_ID="${reqBody.activityId}"\n/env FOLLOW_SIGN="clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}"\n\nVia. Quanx Auto Send`;
+var notifyText = `/monitor FOLLOW_SHOP_ID="${reqBody.shopId}"\n/monitor FOLLOW_VENDER_ID="${reqBody.venderId}"\n\nVia. Quanx Auto Send`;
 
 !(async () => {
     if (reqBody.shopId) {
