@@ -16,7 +16,7 @@ if (actUrl[2]) {
 }
 
 var actId = getQueryString(queryStr, "activityId")
-if (actId && actId.length < 26) {
+if ((actId && actId.length < 26) || (jUrl.indexOf("lzkjdz-isv.isvjcloud.com/wxTeam") < 0 && jUrl.indexOf("cjhydz-isv.isvjcloud.com") < 0 )) {
     $.done()
 }
 
